@@ -25,12 +25,7 @@ public class SufferController {
     @Autowired
     private SufferService sufferService;
 
-    /**
-     * @Description: 查询所有患者名单
-     * @Author: Mr.oth
-     * @Date: 2019/11/19 10:51
-    * @return java.lang.String
-    */
+    //查询所有患者
     @RequestMapping(value="/reservation",produces = "application/json;charset=utf-8")
     @ResponseBody
     public String reserve() throws JsonProcessingException {
@@ -40,13 +35,8 @@ public class SufferController {
         return s;
     }
 
-    /**
-     * @Description: 查询所有挂号科室
-     * @Author: Mr.oth
-     * @Date: 2019/11/19 10:51
-    * @return java.lang.String
-    */
-    @RequestMapping(value="/departments",produces =  "application/json;charset=utf-8")
+    //查询所有科室
+    @RequestMapping(value="/departments",produces = "application/json;charset=utf-8")
     @ResponseBody
     public String queryDept() throws JsonProcessingException {
        List<Department> deptlist= sufferService.queryDepts();
@@ -54,20 +44,15 @@ public class SufferController {
         return s;
     }
 
-    /**
-     * @Description: 新增挂号
-     * @Author: Mr.oth
-     * @Date: 2019/11/19 10:51
-    * @param
-     * @return null
-    */
-    @RequestMapping(value="/newone",produces =  "application/json;charset=utf-8")
+    //新增挂号
+    @RequestMapping(value="/newone")
     public String newone(Suffer newsuffer,String deptid){
          sufferService.createNewone(newsuffer);
          return "/pages/subscribe-form.jsp";
     }
 
 
+    //根据姓名模糊查询
     @RequestMapping(value = "/selectByName",produces =  "application/json;charset=utf-8")
     @ResponseBody
     public String selectByName(String name) throws JsonProcessingException {

@@ -61,7 +61,6 @@
 	<%--发送ajax请求--%>
 	<script>
 		$(function () {
-		    alert("页面加载完成")
 			$.get("/guahao/reservation",{},function (data) {
 				 //data=JSON.parse(data);
                 show(data);
