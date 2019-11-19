@@ -22,6 +22,14 @@ public class SufferServiceImpl implements SufferService {
     private SufferMapper sufferMapper;
 
 
+    //多条件查询
+    @Override
+    public List<Suffer> selectByConditions(String name, String ageRange, String deptid) {
+        int maxage= Integer.parseInt("ageRange.split('-')[1]");
+        int minage= Integer.parseInt("ageRange.split('-')[0]");
+        return sufferMapper.selectByConditions(name,maxage,minage,deptid);
+    }
+
     //模糊查询方法一
     @Override
     public List<Suffer> selectByName(String name) {

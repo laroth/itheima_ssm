@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itheima.domain.Department;
 import com.itheima.domain.Suffer;
 import com.itheima.service.SufferService;
+import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,12 +27,7 @@ public class SufferController {
     @Autowired
     private SufferService sufferService;
 
-    /**
-     * @Description: 查询所有患者名单
-     * @Author: Mr.oth
-     * @Date: 2019/11/19 10:51
-    * @return java.lang.String
-    */
+    //查询所有患者名单
     @RequestMapping(value="/reservation",produces = "application/json;charset=utf-8")
     @ResponseBody
     public String reserve() throws JsonProcessingException {
@@ -40,12 +37,7 @@ public class SufferController {
         return s;
     }
 
-    /**
-     * @Description: 查询所有挂号科室
-     * @Author: Mr.oth
-     * @Date: 2019/11/19 10:51
-    * @return java.lang.String
-    */
+    // 查询所有挂号科室
     @RequestMapping(value="/departments",produces =  "application/json;charset=utf-8")
     @ResponseBody
     public String queryDept() throws JsonProcessingException {
@@ -54,13 +46,7 @@ public class SufferController {
         return s;
     }
 
-    /**
-     * @Description: 新增挂号
-     * @Author: Mr.oth
-     * @Date: 2019/11/19 10:51
-    * @param
-     * @return null
-    */
+    //新增挂号
     @RequestMapping(value="/newone",produces =  "application/json;charset=utf-8")
     public String newone(Suffer newsuffer,String deptid){
          sufferService.createNewone(newsuffer);
@@ -68,10 +54,23 @@ public class SufferController {
     }
 
 
+    //根据姓名模糊查询
     @RequestMapping(value = "/selectByName",produces =  "application/json;charset=utf-8")
     @ResponseBody
     public String selectByName(String name) throws JsonProcessingException {
         List<Suffer> lists= sufferService.selectByName(name);
         return new ObjectMapper().writeValueAsString(lists);
     }
+
+
+    //根据多条件模糊查询
+    @RequestMapping(value = "/selectByConditions",produces =  "application/json;charset=utf-8")
+    @ResponseBody
+    public String selectByConditions(@RequestParam("name") String name,@RequestParam("age") String ageRange,@RequestParam("dept") String deptid) throws JsonProcessingException {
+//        int maxage= Integer.parseInt("ageRange.split('-')[1]");
+//        int maxage= Integer.parseInt("ageRange.split('-')[1]");
+        List<Suffer> lists= sufferService.selectByConditions(name,ageRange,deptid);
+        return new ObjectMapper().writeValueAsString(lists);
+    }
+
 }

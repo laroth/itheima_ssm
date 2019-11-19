@@ -2,10 +2,7 @@ package com.itheima.mapper;
 
 import com.itheima.domain.Department;
 import com.itheima.domain.Suffer;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,5 +18,5 @@ public interface SufferMapper {
     List<Suffer> selectByName(String name);
 
 
-
+    List<Suffer> selectByConditions(@Param("name") String name,@Param("maxage") int maxage,@Param("minage") int minage,@Param("deptid") String deptid);
 }

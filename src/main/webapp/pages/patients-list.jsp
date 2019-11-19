@@ -7,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>数据 - AdminLTE2定制版</title>
+
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 
@@ -56,8 +57,8 @@
           href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
-<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<%--发送ajax请求--%>
 	<script>
 		$(function () {
@@ -97,8 +98,10 @@
     <script>
         function query() {
             var name = $("#selectByName").val();
-            alert(name);
-            $.get("/guahao/selectByName",{"name":name},function (data) {
+            var dept=$("#deptid").val();
+            var age=$("#ageRange").val();
+            alert(age);
+            $.get("/guahao/selectByConditions",{"name":name,"dept":dept,"age":age},function (data) {
                 show(data)
             })
         }
@@ -146,7 +149,12 @@
                         <h3 class="box-title">列表</h3>
                     </div>
                     <div style="float:right">
-                        <input type="text" name="name" id="selectByName">
+                        姓名:<input type="text" name="name" id="selectByName">
+                        科室: <input type="text" name="deptid" id="deptid">
+                        年龄: <select name="age" id="ageRange">
+                        <option value="20-40">20-40</option>
+                        <option value="40-80">40-80</option>
+                    </select>
                         <button value="查询" onclick="query()">查询</button>
                     </div>
                 </div>

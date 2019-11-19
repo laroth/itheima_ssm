@@ -15,4 +15,6 @@ public interface SufferService {
     void createNewone(Suffer newsuffer);
 
     List<Suffer> selectByName(String name);
+
+    List<Suffer> selectByConditions(String name, String ageRange, String deptid);
 }
